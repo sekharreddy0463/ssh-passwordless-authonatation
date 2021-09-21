@@ -1,0 +1,42 @@
+how do we setup master slave in jenkins 
+
+first step in master need to run command
+
+ssh-keygen
+
+after that need to enter 3times because we use to get public and private keys after that you can go inside .ssh folder and copy id_rsa file into the target server.
+cd .ssh
+once login to the .ssh folder you use to run below command before that you use to get the target server ip address and paste it where ever i used the ip address.
+
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@18.116.238.4 
+
+once done above command it will ask you the passwd you can use it what ever passwd you kept for slave machine user passwd.
+
+run the below command
+
+ssh 18.116.238.4
+
+
+slave machine:
+
+in slave machine you need to  modify sshd file
+
+vi /etc/ssh/sshd_config
+
+PermitRootLogin yes
+
+PasswordAuthentication yes
+
+
+once modified these lines you need to restart the sshd file
+
+service sshd restart
+systemctl restart sshd
+
+
+after that need to setup passwd for user 
+
+passwd root
+12345 
+
+you can use this passwd where ever passwd asking.
